@@ -92,7 +92,8 @@ class Auto {
     }
 
     async getAttachments(params, options) {
-        var { attachments } = await getAttachments(params, options);
+        var { attachments,results } = await getAttachments(params, options);
+        // console.log("1111111111111",results);
         return attachments.filter(item => item.attachments.length > 0);
     }
 
@@ -231,6 +232,12 @@ class Auto {
 
         if (data.isPassed) {
             console.log(`当前 [${chapter_name}] [${section_name}] 中的 [${property.name}] 保存状态成功`);
+        }else{
+            var { data } = await saveStatus(params, this.options);
+            while(!data.isPassed){
+                var { data } = await saveStatus(params, this.options);
+            }
+            console.log(`当前 [${chapter_name}] [${section_name}] 中的 [${property.name}] 刷取成功`);
         }
 
         count++;

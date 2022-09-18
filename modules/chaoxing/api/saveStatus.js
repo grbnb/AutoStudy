@@ -28,27 +28,27 @@ async function saveStatus(params, options) {
         otherInfo = params['otherInfo'],
         jobid = params['jobid'],
         userid = params['userid'],
-        enc = `[${clazzId}][${userid}][${jobid}][${objectId}][${playTime}][d_yHJ!$pdA~5][${duration * 1000}][${clipTime}]`;
-
-    // '[clazzId][userid][jobid][objectId][已播放毫秒]["d_yHJ!$pdA~5"][duration * 1000][0_endTime]'
-    // "[59093676][57949954][1582641044173926][211ceda28b40271afa2c8121f51d845f][9000][d_yHJ!$pdA~5][1476000][0_1476]"
-
+        enc = `[${clazzId}][${userid}][${jobid}][${objectId}][${playTime}][d_yHJ!$pdA~5][${playTime}][${clipTime}]`;
     return request(`${params['reportUrl']}/${params['dtoken']}`, 'get', {
         clazzId: clazzId,
-        playingTime: playTime / 1000,
+        playingTime: duration,
         duration: duration,
         clipTime: clipTime,
         objectId: objectId,
         otherInfo: otherInfo,
         jobid: jobid,
         userid: userid,
-        isdrag: '4',
+        isdrag: '0',
         view: 'pc',
         enc: md5(enc),
         rt: params['rt'] || '0.9',
         dtype: 'Video',
-        _t: Date.now()
+        _t: new Date().getTime()
     }, options);
+    // if data['isPassed']==false:
+    //     await saveStatus(params, options);
+    // else:
+    //     return data;
 }
 
 //  获取附件信息

@@ -23,7 +23,6 @@ async function attachment(params = {}, options = {}) {
         verificationcode: '',
         mooc2: 1
     }, options);
-
     var $ = cheerio.load(result.data),
         Concurrencys = [];
 
@@ -47,7 +46,8 @@ async function attachment(params = {}, options = {}) {
             }
         });
         return {
-            attachments: resources
+            attachments: resources,
+            results:result
         };
     });
 }
